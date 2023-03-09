@@ -3,7 +3,11 @@ class LinkedList {
     this.head = _head;
   }
 
-  tail() {
+  getHead() {
+    return this.head;
+  }
+
+  getTail() {
     // Return the last node (that has a null next)
     // If the list is empty:
     if (this.head === null) {
@@ -49,6 +53,23 @@ class LinkedList {
         lastNode = lastNode.next;
       }
       return counter;
+    }
+  }
+
+  at(index = 0) {
+    // If the list is empty:
+    if (index === 0) {
+      return this.head;
+    } else {
+      let currentNode = this.head.next;
+      let counter = 1;
+
+      while (counter < index) {
+        currentNode = currentNode.next;
+        counter++;
+      }
+
+      return currentNode;
     }
   }
 }
