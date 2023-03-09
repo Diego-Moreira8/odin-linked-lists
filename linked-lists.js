@@ -34,6 +34,23 @@ class LinkedList {
     this.head = new Node(value);
     this.head.next = aux;
   }
+
+  size() {
+    // Very similar with the tail method, but with a counter
+    // If the list is empty:
+    if (this.head === null) {
+      return 0;
+    } else {
+      let lastNode = this.head;
+      let counter = 1;
+      // While there is a next node, update "lastNode" with that nextNode
+      while (lastNode.next) {
+        counter++;
+        lastNode = lastNode.next;
+      }
+      return counter;
+    }
+  }
 }
 
 class Node {
