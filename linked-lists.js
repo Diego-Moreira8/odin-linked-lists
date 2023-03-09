@@ -27,6 +27,13 @@ class LinkedList {
       tail.next = new Node(value);
     }
   }
+
+  prepend(value) {
+    // Store the list in aux to insert it in the link of the new head
+    const aux = this.head;
+    this.head = new Node(value);
+    this.head.next = aux;
+  }
 }
 
 class Node {
