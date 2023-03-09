@@ -2,6 +2,31 @@ class LinkedList {
   constructor(_head = null) {
     this.head = _head;
   }
+
+  tail() {
+    // Return the last node (that has a null next)
+    // If the list is empty:
+    if (this.head === null) {
+      return this;
+    } else {
+      let lastNode = this.head;
+      // While there is a next node, update "lastNode" with that nextNode
+      while (lastNode.next) {
+        lastNode = lastNode.next;
+      }
+      return lastNode;
+    }
+  }
+
+  append(value) {
+    // If it's the first node:
+    if (this.head === null) {
+      this.head = new Node(value);
+    } else {
+      let tail = this.tail();
+      tail.next = new Node(value);
+    }
+  }
 }
 
 class Node {
