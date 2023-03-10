@@ -105,6 +105,11 @@ class LinkedList {
       return index;
     }
   }
+
+  contain(value) {
+    // Uses find method to verify the value exists
+    return this.find(value) !== null ? true : false;
+  }
 }
 
 class Node {
