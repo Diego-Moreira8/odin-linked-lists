@@ -27,7 +27,7 @@ class LinkedList {
     if (this.head === null) {
       this.head = new Node(value);
     } else {
-      let tail = this.tail();
+      let tail = this.getTail();
       tail.next = new Node(value);
     }
   }
@@ -83,6 +83,28 @@ class LinkedList {
       nextToTail.next = null;
     }
   }
+
+  contains(value) {
+    // Returns the index of the node containing value, or null if not found
+    if (this.head.value === value) {
+      return 0;
+    } else {
+      let currentNode = this.head.next;
+      let index = 1;
+
+      while (currentNode.value !== value) {
+        // Stop the loop and return null if the next node doesn't exist
+        if (currentNode.next === null) {
+          return null;
+        } else {
+          // Else, updates variable for the next loop
+          currentNode = currentNode.next;
+          index++;
+        }
+      }
+      return index;
+    }
+  }
 }
 
 class Node {
@@ -111,3 +133,5 @@ let list = new LinkedList(node1);
 // console.log(node3);
 
 console.log(list);
+
+list.contains("Paloma");
