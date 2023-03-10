@@ -63,13 +63,24 @@ class LinkedList {
     } else {
       let currentNode = this.head.next;
       let counter = 1;
-
       while (counter < index) {
         currentNode = currentNode.next;
         counter++;
       }
-
       return currentNode;
+    }
+  }
+
+  pop() {
+    // Removes the last element from the list
+    // If the list has one element:
+    if (this.size() === 0) {
+      console.error("The list is empty!");
+    } else if (this.size() === 1) {
+      this.head = null;
+    } else {
+      let nextToTail = this.at(this.size() - 2);
+      nextToTail.next = null;
     }
   }
 }
