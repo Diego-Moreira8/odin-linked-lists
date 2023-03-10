@@ -110,6 +110,21 @@ class LinkedList {
     // Uses find method to verify the value exists
     return this.find(value) !== null ? true : false;
   }
+
+  toString() {
+    // Represents the LinkedList objects as strings
+    let currentNode = this.head;
+    let string = "";
+
+    while (currentNode !== null) {
+      string += `( ${currentNode.value} ) -> `;
+      currentNode = currentNode.next;
+    }
+
+    string += `( null )`;
+
+    return string;
+  }
 }
 
 class Node {
@@ -138,3 +153,5 @@ let list = new LinkedList(node1);
 // console.log(node3);
 
 console.log(list);
+
+console.log(list.toString());
