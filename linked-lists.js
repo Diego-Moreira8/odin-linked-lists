@@ -126,8 +126,7 @@ class LinkedList {
 
   insertAt(index, newValue = null) {
     // Inserts a new node with the provided value at the given index
-
-    // Backwards index
+    // Backwards index treatment
     if (index < 0) {
       index = this.size() + index + 1;
       if (index < 0) {
@@ -140,7 +139,6 @@ class LinkedList {
       this.prepend(newValue);
     } else {
       let currentNode = this.head;
-
       // Locates the index
       // Starts at 1, 0 was already verified
       for (let i = 1; i < index; i++) {
@@ -158,7 +156,6 @@ class LinkedList {
       const newNode = new Node(newValue);
       newNode.next = currentNode.next;
       currentNode.next = newNode;
-      console.log(list.toString());
     }
   }
 }
