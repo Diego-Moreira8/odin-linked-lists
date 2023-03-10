@@ -158,6 +158,33 @@ class LinkedList {
       currentNode.next = newNode;
     }
   }
+
+  removeAt(index) {
+    // Backwards index treatment
+    if (index < 0) {
+      index = this.size() + index;
+      if (index < 0) {
+        console.error("The index cannot be smaller than 0");
+        return null;
+      }
+    }
+
+    if (index === 0) {
+      this.head = this.head.next;
+    } else {
+      let currentNode = this.head;
+      // Locates the index one position before the selected one
+      for (let i = 0; i < index - 1; i++) {
+        currentNode = currentNode.next;
+        if (currentNode === null) {
+          console.error("This index doesn't exists");
+          return null;
+        }
+      }
+
+      currentNode.next = currentNode.next.next;
+    }
+  }
 }
 
 class Node {
