@@ -84,7 +84,7 @@ class LinkedList {
     }
   }
 
-  contains(value) {
+  find(value) {
     // Returns the index of the node containing value, or null if not found
     if (this.head.value === value) {
       return 0;
@@ -97,7 +97,7 @@ class LinkedList {
         if (currentNode.next === null) {
           return null;
         } else {
-          // Else, updates variable for the next loop
+          // Else, updates variables for the next loop
           currentNode = currentNode.next;
           index++;
         }
@@ -133,5 +133,3 @@ let list = new LinkedList(node1);
 // console.log(node3);
 
 console.log(list);
-
-list.contains("Paloma");
