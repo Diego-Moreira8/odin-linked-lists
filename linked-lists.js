@@ -33,10 +33,9 @@ class LinkedList {
   }
 
   prepend(value) {
-    // Store the list in aux to insert it in the link of the new head
-    const aux = this.head;
-    this.head = new Node(value);
-    this.head.next = aux;
+    // Creates a new Node linked to the head, and updates head with the new node
+    const newNode = new Node(value, this.head);
+    this.head = newNode;
   }
 
   size() {
@@ -120,10 +119,44 @@ class LinkedList {
       string += `( ${currentNode.value} ) -> `;
       currentNode = currentNode.next;
     }
-
     string += `( null )`;
 
     return string;
+  }
+
+  insertAt(index, newValue) {
+    // Inserts a new node with the provided value at the given index
+
+    // Backwards index
+    // if (index < 0) {
+    //   index = this.size() - index - 1;
+    // }
+
+    if (index === 0) {
+      this.prepend(newValue);
+    } else {
+      let currentNode = this.head.next;
+      let counter = 1;
+
+      // Locates the index
+      while (counter < index - 1) {
+        if (currentNode === null) {
+          console.error(
+            `This index is bigger than the last of the list. If you want to 
+            insert in the end of the list, use the method append(value)`
+          );
+          return null;
+        }
+        currentNode = currentNode.next;
+        counter++;
+      }
+
+      // Creates the new Node with a link from the current index
+      const newNode = new Node(newValue, currentNode.next);
+      currentNode.next = newNode;
+
+      console.log(list.toString());
+    }
   }
 }
 
@@ -151,7 +184,5 @@ let list = new LinkedList(node1);
 // console.log(node1);
 // console.log(node2);
 // console.log(node3);
-
-console.log(list);
 
 console.log(list.toString());
