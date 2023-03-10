@@ -131,7 +131,7 @@ class LinkedList {
       index = this.size() + index + 1;
       if (index < 0) {
         console.error("The index cannot be smaller than 0");
-        return null;
+        return;
       }
     }
 
@@ -147,7 +147,7 @@ class LinkedList {
             `This index is bigger than the last of the list. If you want to
             insert in the end of the list, use the method append(value)`
           );
-          return null;
+          return;
         }
         currentNode = currentNode.next;
       }
@@ -178,7 +178,7 @@ class LinkedList {
         currentNode = currentNode.next;
         if (currentNode === null) {
           console.error("This index doesn't exists");
-          return null;
+          return;
         }
       }
 
