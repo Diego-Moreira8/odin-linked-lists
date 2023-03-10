@@ -124,37 +124,40 @@ class LinkedList {
     return string;
   }
 
-  insertAt(index, newValue) {
+  insertAt(index, newValue = null) {
     // Inserts a new node with the provided value at the given index
 
     // Backwards index
-    // if (index < 0) {
-    //   index = this.size() - index - 1;
-    // }
+    if (index < 0) {
+      index = this.size() + index + 1;
+      if (index < 0) {
+        console.error("The index cannot be smaller than 0");
+        return null;
+      }
+    }
 
     if (index === 0) {
       this.prepend(newValue);
     } else {
-      let currentNode = this.head.next;
-      let counter = 1;
+      let currentNode = this.head;
 
       // Locates the index
-      while (counter < index - 1) {
-        if (currentNode === null) {
+      // Starts at 1, 0 was already verified
+      for (let i = 1; i < index; i++) {
+        if (currentNode.next === null) {
           console.error(
-            `This index is bigger than the last of the list. If you want to 
+            `This index is bigger than the last of the list. If you want to
             insert in the end of the list, use the method append(value)`
           );
           return null;
         }
         currentNode = currentNode.next;
-        counter++;
       }
 
-      // Creates the new Node with a link from the current index
-      const newNode = new Node(newValue, currentNode.next);
+      // Creates the new Node with the given value
+      const newNode = new Node(newValue);
+      newNode.next = currentNode.next;
       currentNode.next = newNode;
-
       console.log(list.toString());
     }
   }
