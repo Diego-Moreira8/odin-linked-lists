@@ -1,4 +1,4 @@
-class LinkedList {
+export class LinkedList {
   constructor(_head = null) {
     this.head = _head;
   }
@@ -187,7 +187,7 @@ class LinkedList {
   }
 }
 
-class Node {
+export class Node {
   constructor(_value = null, _next = null) {
     this.value = _value;
     this.next = _next;
