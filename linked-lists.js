@@ -1,16 +1,30 @@
-export class LinkedList {
+class LinkedList {
   constructor(_head = null) {
     this.head = _head;
   }
 
+  isEmpty = () => this.head === null;
+
+  backwardsIndex(negativeIndex) {
+    // Use negative indexes to move backwards in the list
+    negativeIndex = this.size() + negativeIndex;
+    if (negativeIndex < 0) {
+      console.log("The index cannot be smaller than 0");
+      return null;
+    } else {
+      return negativeIndex;
+    }
+  }
+
   getHead() {
+    // Return the first node (that has a null next)
     return this.head;
   }
 
   getTail() {
     // Return the last node (that has a null next)
     // If the list is empty:
-    if (this.head === null) {
+    if (this.isEmpty()) {
       return this;
     } else {
       let lastNode = this.head;
@@ -22,62 +36,73 @@ export class LinkedList {
     }
   }
 
-  append(value) {
-    // If it's the first node:
-    if (this.head === null) {
+  append(value = null) {
+    // Adds a new node containing value to the end of the list
+    if (this.isEmpty()) {
       this.head = new Node(value);
     } else {
-      let tail = this.getTail();
+      const tail = this.getTail();
       tail.next = new Node(value);
     }
   }
 
-  prepend(value) {
-    // Creates a new Node linked to the head, and updates head with the new node
+  prepend(value = null) {
+    // Adds a new node containing value to the start of the list.
+    // Creates a new Node with the passed value and a link to the head,
+    // then updates head with the new node
     const newNode = new Node(value, this.head);
     this.head = newNode;
   }
 
   size() {
-    // Very similar with the tail method, but with a counter
-    // If the list is empty:
-    if (this.head === null) {
+    // Returns the total number of nodes in the list
+    // Very similar with the getTail method, but with a counter
+    if (this.isEmpty()) {
       return 0;
     } else {
       let lastNode = this.head;
       let counter = 1;
-      // While there is a next node, update "lastNode" with that nextNode
+      // While there is a next node, update "lastNode" with that nextNode,
+      // and increments the counter
       while (lastNode.next) {
-        counter++;
         lastNode = lastNode.next;
+        counter++;
       }
       return counter;
     }
   }
 
-  at(index = 0) {
-    // If the list is empty:
-    if (index === 0) {
-      return this.head;
-    } else {
-      let currentNode = this.head.next;
-      let counter = 1;
-      while (counter < index) {
-        currentNode = currentNode.next;
-        counter++;
+  at(index) {
+    // Returns the node at the given index
+
+    // Treats the input
+    if (index === undefined || isNaN(index)) {
+      console.log("Invalid parameter. Please provide a valid value for index.");
+      return null;
+    } else if (index < 0) {
+      // Generates a backwards index
+      index = this.backwardsIndex(index);
+      if (index === null) {
+        return null;
       }
-      return currentNode;
     }
+
+    // Search the index
+    let currentNode = this.head;
+    for (let i = 0; i < index; i++) currentNode = currentNode.next;
+    return currentNode;
   }
 
   pop() {
     // Removes the last element from the list
-    // If the list has one element:
-    if (this.size() === 0) {
-      console.error("The list is empty!");
-    } else if (this.size() === 1) {
+    if (this.isEmpty()) {
+      console.log("The list is empty!");
+    } else if (this.head.next === null) {
+      // If the list has one element:
       this.head = null;
     } else {
+      // Subtracts 2 from the size of the list (1 to get the last index and
+      // another 1 to the next to it), and get the node with that index
       let nextToTail = this.at(this.size() - 2);
       nextToTail.next = null;
     }
@@ -85,24 +110,20 @@ export class LinkedList {
 
   find(value) {
     // Returns the index of the node containing value, or null if not found
-    if (this.head.value === value) {
-      return 0;
-    } else {
-      let currentNode = this.head.next;
-      let index = 1;
+    let currentNode = this.head;
+    let index = 0;
 
-      while (currentNode.value !== value) {
-        // Stop the loop and return null if the next node doesn't exist
-        if (currentNode.next === null) {
-          return null;
-        } else {
-          // Else, updates variables for the next loop
-          currentNode = currentNode.next;
-          index++;
-        }
+    while (currentNode.value !== value) {
+      // If the next node doesn't exist, return null and stop the loop
+      if (currentNode.next === null) {
+        return null;
+      } else {
+        // Else, updates variables for the next loop
+        currentNode = currentNode.next;
+        index++;
       }
-      return index;
     }
+    return index;
   }
 
   contain(value) {
@@ -130,7 +151,7 @@ export class LinkedList {
     if (index < 0) {
       index = this.size() + index + 1;
       if (index < 0) {
-        console.error("The index cannot be smaller than 0");
+        console.log("The index cannot be smaller than 0");
         return;
       }
     }
@@ -143,7 +164,7 @@ export class LinkedList {
       // Starts at 1, 0 was already verified
       for (let i = 1; i < index; i++) {
         if (currentNode.next === null) {
-          console.error(
+          console.log(
             `This index is bigger than the last of the list. If you want to
             insert in the end of the list, use the method append(value)`
           );
@@ -164,7 +185,7 @@ export class LinkedList {
     if (index < 0) {
       index = this.size() + index;
       if (index < 0) {
-        console.error("The index cannot be smaller than 0");
+        console.log("The index cannot be smaller than 0");
         return null;
       }
     }
@@ -177,7 +198,7 @@ export class LinkedList {
       for (let i = 0; i < index - 1; i++) {
         currentNode = currentNode.next;
         if (currentNode === null) {
-          console.error("This index doesn't exists");
+          console.log("This index doesn't exists");
           return;
         }
       }
@@ -187,9 +208,21 @@ export class LinkedList {
   }
 }
 
-export class Node {
+class Node {
   constructor(_value = null, _next = null) {
     this.value = _value;
     this.next = _next;
   }
 }
+
+// Tests
+
+const list = new LinkedList();
+
+list.append("Diego");
+list.append("Paloma");
+list.append("Rafaello");
+list.append("Lorena");
+list.append("Caixa de som");
+
+//list.head = new Node("Diego");
