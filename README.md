@@ -23,7 +23,7 @@ new Node(value, next);
 // Set both as null by default.
 ```
 
-### LinkedList methods
+## LinkedList methods
 
 ```javascript
 getHead();

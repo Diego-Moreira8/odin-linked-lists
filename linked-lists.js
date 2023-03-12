@@ -1,4 +1,4 @@
-class LinkedList {
+export class LinkedList {
   constructor(_head = null) {
     this.head = _head;
   }
@@ -219,21 +219,9 @@ class LinkedList {
   }
 }
 
-class Node {
+export class Node {
   constructor(_value = null, _next = null) {
     this.value = _value;
     this.next = _next;
   }
 }
-
-// Tests
-
-const list = new LinkedList();
-
-list.append("Diego");
-list.append("Paloma");
-list.append("Rafaello");
-list.append("Lorena");
-list.append("Caixa de som");
-
-//list.head = new Node("Diego");
