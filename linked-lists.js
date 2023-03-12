@@ -127,7 +127,7 @@ class LinkedList {
   }
 
   contain(value) {
-    // Uses find method to verify the value exists
+    // Uses find method to verify if the value exists
     return this.find(value) !== null ? true : false;
   }
 
@@ -145,28 +145,42 @@ class LinkedList {
     return string;
   }
 
-  insertAt(index, newValue = null) {
-    // Inserts a new node with the provided value at the given index
-    // Backwards index treatment
-    if (index < 0) {
-      index = this.size() + index + 1;
-      if (index < 0) {
-        console.log("The index cannot be smaller than 0");
-        return;
+  inputTreatment(index) {
+    // Treats the input for the insertAt and removeAt methods.
+    // Returns null if invalid
+
+    if (index === undefined || isNaN(index)) {
+      console.log("Invalid index. Please provide a valid value for index.");
+      return null;
+    } else if (index < 0) {
+      // Generates a backwards index
+      index = this.backwardsIndex(index);
+      if (index === null) {
+        return null;
       }
     }
 
+    // After treated with no errors, return it
+    return index;
+  }
+
+  insertAt(index, newValue = null) {
+    // Inserts a new node with the provided value at the given index
+    // Treats the input
+    index = this.inputTreatment(index);
+    if (index === null) return;
+
+    // Search the index
     if (index === 0) {
       this.prepend(newValue);
     } else {
       let currentNode = this.head;
-      // Locates the index
-      // Starts at 1, 0 was already verified
+
+      // Locate the node. Starts at 1, 0 was already verified
       for (let i = 1; i < index; i++) {
         if (currentNode.next === null) {
           console.log(
-            `This index is bigger than the last of the list. If you want to
-            insert in the end of the list, use the method append(value)`
+            "This index is bigger than the last of the list. If you want to insert in the end of the list, use the method append(value)"
           );
           return;
         }
@@ -181,26 +195,23 @@ class LinkedList {
   }
 
   removeAt(index) {
-    // Backwards index treatment
-    if (index < 0) {
-      index = this.size() + index;
-      if (index < 0) {
-        console.log("The index cannot be smaller than 0");
-        return null;
-      }
-    }
+    // Removes the node at the given index
+    // Treats the input
+    index = this.inputTreatment(index);
+    if (index === null) return;
 
+    // Search the index
     if (index === 0) {
       this.head = this.head.next;
     } else {
       let currentNode = this.head;
       // Locates the index one position before the selected one
       for (let i = 0; i < index - 1; i++) {
-        currentNode = currentNode.next;
-        if (currentNode === null) {
+        if (currentNode.next.next === null) {
           console.log("This index doesn't exists");
           return;
         }
+        currentNode = currentNode.next;
       }
 
       currentNode.next = currentNode.next.next;
